@@ -13,6 +13,7 @@ class Task(
 ) {
     init {
         require(title.isNotEmpty()) { "제목은 빈 문자열일 수 없습니다." }
+        require(tags.size <= 5) { "태그는 5개까지만 생성 가능합니다." }
     }
 }
 
@@ -47,5 +48,16 @@ class TaskTest {
         }.isInstanceOf(IllegalArgumentException::class.java)
     }
 
-
+    @Test
+    fun `태그는 최대 5개까지 생성 가능하다`() {
+        assertThatThrownBy {
+            val task = Task(
+                title = "TDD 수업하기",
+                description = "오늘 배운 내용을 복습하고 다음 주제를 준비한다.",
+                tags = listOf("공부", "TDD", "TDD1", "TDD2", "TDD3", "TDD4"),
+                status = "TODO",
+                assignee = "레아",
+            )
+        }.isInstanceOf(IllegalArgumentException::class.java)
+    }
 }

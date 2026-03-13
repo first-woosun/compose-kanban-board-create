@@ -1,6 +1,7 @@
 package woowacourse.kanban.board
 
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import kotlin.test.Test
 
 class Task(
@@ -9,7 +10,11 @@ class Task(
     val tags: List<String>,
     val status: String,
     val assignee: String,
-)
+) {
+    init {
+        require(title.isNotEmpty()) { "제목은 빈 문자열일 수 없습니다." }
+    }
+}
 
 class TaskTest {
 
@@ -28,5 +33,19 @@ class TaskTest {
         assertThat(task.status).isEqualTo("TODO")
         assertThat(task.assignee).isEqualTo("레아")
     }
+
+    @Test
+    fun `제목이 빈 문자열이면 태스크 생성이 불가능하다`() {
+        assertThatThrownBy {
+            val task = Task(
+                title = "",
+                description = "오늘 배운 내용을 복습하고 다음 주제를 준비한다.",
+                tags = listOf("공부", "TDD"),
+                status = "TODO",
+                assignee = "레아",
+            )
+        }.isInstanceOf(IllegalArgumentException::class.java)
+    }
+
 
 }

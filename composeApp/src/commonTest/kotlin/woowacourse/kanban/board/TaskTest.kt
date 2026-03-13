@@ -6,14 +6,17 @@ import kotlin.test.Test
 
 class Task(
     val title: String,
-    val description: String,
-    val tags: List<String>,
+    val description: String? = null,
+    val tags: List<String>? = null,
     val status: String,
     val assignee: String,
 ) {
+    fun doesDescriptionExists() = description != null
+    fun doesTagExists() = tags != null
+
     init {
         require(title.isNotEmpty()) { "제목은 빈 문자열일 수 없습니다." }
-        require(tags.size <= 5) { "태그는 5개까지만 생성 가능합니다." }
+        require((tags?.size ?: 0) <= 5) { "태그는 5개까지만 생성 가능합니다." }
     }
 }
 
@@ -60,4 +63,19 @@ class TaskTest {
             )
         }.isInstanceOf(IllegalArgumentException::class.java)
     }
+
+    @Test
+    fun `제목, 상태, 담당자로 태스크를 생성할 수 있다`() {
+        val task = Task(
+            title = "TDD 수업하기",
+            status = "TODO",
+            assignee = "레아",
+        )
+        assertThat(task.title).isEqualTo("TDD 수업하기")
+        assertThat(task.status).isEqualTo("TODO")
+        assertThat(task.assignee).isEqualTo("레아")
+        assertThat(task.doesDescriptionExists()).isEqualTo(false)
+        assertThat(task.doesTagExists()).isEqualTo(false)
+    }
+
 }

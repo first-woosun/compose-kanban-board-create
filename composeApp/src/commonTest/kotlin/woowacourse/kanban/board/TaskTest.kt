@@ -4,11 +4,15 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import kotlin.test.Test
 
+enum class TaskStatus {
+    TODO, IN_PROGRESS, DONE
+}
+
 class Task(
     val title: String,
     val description: String? = null,
     val tags: List<String>? = null,
-    val status: String,
+    val status: TaskStatus = TaskStatus.TODO,
     val assignee: String,
 ) {
     fun doesDescriptionExists() = description != null
@@ -28,13 +32,13 @@ class TaskTest {
             title = "TDD 수업하기",
             description = "오늘 배운 내용을 복습하고 다음 주제를 준비한다.",
             tags = listOf("공부", "TDD"),
-            status = "TODO",
+            status = TaskStatus.TODO,
             assignee = "레아",
         )
         assertThat(task.title).isEqualTo("TDD 수업하기")
         assertThat(task.description).isEqualTo("오늘 배운 내용을 복습하고 다음 주제를 준비한다.")
         assertThat(task.tags).isEqualTo(listOf("공부", "TDD"))
-        assertThat(task.status).isEqualTo("TODO")
+        assertThat(task.status).isEqualTo(TaskStatus.TODO)
         assertThat(task.assignee).isEqualTo("레아")
     }
 
@@ -45,7 +49,7 @@ class TaskTest {
                 title = "",
                 description = "오늘 배운 내용을 복습하고 다음 주제를 준비한다.",
                 tags = listOf("공부", "TDD"),
-                status = "TODO",
+                status = TaskStatus.TODO,
                 assignee = "레아",
             )
         }.isInstanceOf(IllegalArgumentException::class.java)
@@ -58,7 +62,7 @@ class TaskTest {
                 title = "TDD 수업하기",
                 description = "오늘 배운 내용을 복습하고 다음 주제를 준비한다.",
                 tags = listOf("공부", "TDD", "TDD1", "TDD2", "TDD3", "TDD4"),
-                status = "TODO",
+                status = TaskStatus.TODO,
                 assignee = "레아",
             )
         }.isInstanceOf(IllegalArgumentException::class.java)
@@ -68,14 +72,25 @@ class TaskTest {
     fun `제목, 상태, 담당자로 태스크를 생성할 수 있다`() {
         val task = Task(
             title = "TDD 수업하기",
-            status = "TODO",
+            status = TaskStatus.TODO,
             assignee = "레아",
         )
         assertThat(task.title).isEqualTo("TDD 수업하기")
-        assertThat(task.status).isEqualTo("TODO")
+        assertThat(task.status).isEqualTo(TaskStatus.TODO)
         assertThat(task.assignee).isEqualTo("레아")
         assertThat(task.doesDescriptionExists()).isEqualTo(false)
         assertThat(task.doesTagExists()).isEqualTo(false)
+    }
+
+    @Test
+    fun `상태를 지정하지 않으면 기본값은 TODO이다`() {
+        val task = Task(
+            title = "TDD 수업하기",
+            assignee = "레아",
+        )
+        assertThat(task.title).isEqualTo("TDD 수업하기")
+        assertThat(task.status).isEqualTo(TaskStatus.TODO)
+        assertThat(task.assignee).isEqualTo("레아")
     }
 
 }

@@ -22,3 +22,16 @@ ktlint_standard_spacing-between-declarations-with-comments = disabled
 ktlint_standard_unary-op-spacing = disabled
 ktlint_standard_function-expression-body = disabled
 ktlint_standard_value-parameter-comment = disabled
+
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 120
+tab_width = 4

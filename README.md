@@ -1,40 +1,88 @@
-This is a Kotlin Multiplatform project targeting Android, Desktop (JVM).
+# 칸반 보드 생성(상품 목록)
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+# 기능 구현 사항
 
-### Build and Run Android Application
+### 1. 모달 구현
+- [x] 모달 헤더 (타이틀 내용, 취소 버튼) 구현
+- [x] 모달 푸터 (취소, 생성 버튼) 구현
+- [x] 입력 컴포넌트 구현
+- [x] 버튼 컴포넌트 구현
+- [x] 모달 바디 구현
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+### 2. 비즈니스 로직
+- [x] 텍스트 필드 유효성 검사 로직 구현
+  - [x] 제목 필드 빈 값 불가
+  - [x] 설명 필드 100글자 이내
+  - [x] 태그 쉼표로 구분하여 최대 5개
+  - [x] 태그 당 글자 수 5자 제한
+- [x] 버튼 선택 상태 관리 구현
+- [x] 생성 버튼 유효성 검사 구현
 
-### Build and Run Desktop (JVM) Application
+### 3. 테스트 시나리오
 
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
+#### 단위 테스트
 
----
+- [x]  제목에 빈 값이 들어오면 false를 반환한다.
+- [x]  태그의 개수가 5개 초과하면 false를 반환한다.
+- [x]  태그 당 텍스트 글자 수가 5자를 초과하면 false를 반환한다.
+- [x]  제목에 값이 입력되면 true를 반환한다.
+- [x]  태그에 빈 값이 입력되면 true를 반환한다.
+- [x]  태그별 텍스트가 비어있으면 false를 반환한다.
+- [x]  모든 태그의 텍스트 글자 수가 5자 이하이면 true를 반환한다.
+- [x]  제목이 입력되면 isButtonEnabled에 true를 반환한다.
+- [x]  제목이 입력되지 않으면 isButtonEnabled에 false를 반환한다.
+- [x]  태그가 5개 초과면 isButtonEnabled에 false를 반환한다.
+- [x]  한 태그의 글자 수가 5자 초과면 isButtonEnabled에 false를 반환한다.
+- [x]  제목이 입력되고 태그의 개수가 5개 이하이며 한 태그당 글자 수가 5자 이하면 isButtonEnabled에 true를 반환한다.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+#### UI 테스트
+
+- [x]  제목 필드에 빈 값이 입력되면 텍스트 필드 border가 빨간색이 된다.
+- [x]  태그 필드의 태그 개수가 5개 초과하면 border가 빨간색이 된다.
+- [x]  태그 필드의 태그 당 텍스트 글자 수가 5자를 초과하면 border가 빨간색이 된다.
+- [x]  필수 값 (제목)이 입력되면 생성 버튼이 활성화 된다.
+- [x]  필수 값 (제목)이 입력되지 않으면 생성 버튼이 비활성화된다.
+
+# 피드백
+### [x] Preview 함수의 위치
+
+### [x] Modifier 파라미터의 위치
+- 모든 컴포저블은 modifier 파라미터를 받도록 설계
+- 첫 번째 UI를 그리는 자식에게 전달하는 것이 best
+  - 재사용성 증가, 동작이 예측 가능해지고 직관적이 됨
+- modifier는 첫번째 선택적 파라미터여야 함
+  - 관례와 일관성 : 컴포저블을 사용할 때 항상 동일한 위치에서 Modifier를 사용할 수 있어 예측 가능성이 높아짐
+  - 외부 수정 기능(외부 API) : 필수 파라미터를 지정하면서 Modifier만 별고로 넘겨 내부 동작을 변경하지 않고 외부에서 스타일, 크기, 클릭 동작 등을 수정할 수 있음
+  - 컴포저블의 유연성 : 필수 파라미터 뒤에 Modifier가 배치되면 사용자는 스타일링이 필요 없는 간단한 호출을 할 때 Modifier를 생략할 수 있음
+- 가독성 및 유지보수가 용이해짐
+
+### [x] 코틀린 코딩 컨벤션 - 함수 시그니처 포맷팅
+
+### [x] 상태 관리 방법 - Int같은 원시 타입 말고 다른 방법은 없었는가?
+- 원시 타입을 사용하는 대신, State 클래스를 정의하고 그 클래스의 객체를 생성해 객체의 필드 값과 상태를 비교하는 방식으로 진행해보고 싶음
+- String 타입 list를 선언하고 리스트를 이터레이션 하면서 버튼을 생성
+
+### [X] 유의미한 Component의 단위?
+- LabelAndContent 컴포넌트 추가
+
+### [x] `modal` , `header` , 같은 네이밍이 다름 사람이 직관적으로 파악할 수 있는 네이밍인가?
+- Modal → TaskCardDataInput, header 제거
+
+### [ ] 선택된 버튼과 선택되지 않은 버튼의 차이를 나타내는 방법에 대해 생각해보기
+- FilterChip 컴포넌트가 이를 어떻게 처리하는지 살펴보기
+- isSelected 파라미터 추가
+
+### [x] 상수를 선언하는 방법
+- const에는 원시 타입과 String 타입만 사용할 수 있음
+  - 컴파일 타임 상수: 컴파일 시점에 값이 완전히 결정되어야 함
+  - 원시 타입의 특성: 원시 타입과 String 타입은 컴파일러가 값을 코드에 직접 삽입할 수 있는 가장 단순한 형태임
+  - 객체 생성 불가: 클래스 생성자나 런타임에 계산이 필요한 객체의 경우 컴파일 시점에 값이 결정되지 않음
+- internal 변경자
+  - 같은 모듈 내에서만 사용할 수 있도록 가시성을 변경
+  - AppColors.kt의 경우 여러 위치에서 재사용될 수 있으므로 internal로 선언할 필요 없을 것 같음
+
+### [x] 검증 로직 리펙터링
+- 기존 validator 제거
+- 상태를 저장하는 곳에서 검증
+
+### [x] 쉼표 뒤 공백 제거 (trim())

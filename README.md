@@ -1,40 +1,109 @@
-This is a Kotlin Multiplatform project targeting Android, Desktop (JVM).
+## UI 목록
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+- [x] 태스크 생성 다이얼로그
+- [x] 타이틀 로우
+    - 새 테스크 생성
+    - 닫기 아이콘
+- [x] 구분선
 
-### Build and Run Android Application
+- [x] 공통 텍스트 인풋 칼럼
+    - 제목 칼럼
+        - 헤더
+        - 제목 텍스트필드
+    - 설명 칼럼
+        - 헤더
+        - 설명 텍스트필드
+    - 태그 칼럼
+        - 헤더
+        - 설명 텍스트필드
+        - 힌트 텍스트
+- [x] 공통 버튼 칼럼
+    - 상태 칼럼
+        - 헤더
+        - 버튼 로우
+            - To Do
+            - In Progress
+            - Done
+    - 담당자 칼럼
+        - 헤더
+        - 버튼 로우
+            - 버튼 객체(박스, 이미지, 텍스트)
+                - 다이노
+                - 페임스
+- [x] 구분선
+- [x] 취소, 생성 로우
+    - 버튼 리스트
+        - 취소
+        - 생성
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+## 기능 목록
 
-### Build and Run Desktop (JVM) Application
+- [x] 제목 검증
+    - 공백 검사
+    - 에러 표시(보더, 에러 힌트 텍스트)
+- [x] 태그 검증
+    - 5글자 제한
+    - 5개 제한
+    - 에러 표시(보더, 에러 힌트 텍스트)
+- [x] 상태 버튼 상호작용
+    - 기본값 맨 앞 버튼
+    - 선택 가능하게
+    - 선택 효과
+- [x] 담당자 버튼 상호작용
+    - 기본값 맨 앞 버튼
+    - 선택 가능하게
+    - 선택 효과
+- [x] 생성 버튼 상호작용
+    - 생성
+        - 눌렀을 때 유효성 검사
+    - 비활성화 효과
 
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
+## UI 테스트
+
+- [x] 상태 버튼을 클릭 했을 때 다른 상태 버튼은 선택되지 않아야 한다.
+- [x] 담당자 버튼을 클릭 했을 때 다른 상태 버튼은 선택되지 않아야 한다.
+- [x] 제목 검증 혹은 태그 검증에 실패시 생성 버튼 비활성화
+- [x] 텍스트 필드에 입력한 내용이 입력한대로 출력되어야 한다.
+- [x] 제목 검증 혹은 태그 검증에 실패시 생성 버튼을 누르면 제목과 태그에서 에러 표시가 출력되야 한다.
 
 ---
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+# 피드백 목록
+
+- [x]  기능 구현과 README 체크 기능을 따로 한 것에 관하여
+- [x]  생성 버튼이 안보이는 문제
+- [x]  listOf()를 대체할 수 있는 코틀린 문법은?
+- [x]  최대 태그 수를 외부에서 받는 것에 대하여
+- [x]  공백과 비어있을 때의 테스트는 같은 테스트인가?
+- [x]  Tags의 기본 값을 바꾼다면 테스트가 어떻게 될까?
+- [x]  Preview를 분리하는 것이 어떨까?
+- [x]  상태 관리에 대하여
+- [x]  이름을 자명하게 지어야 한다
+- [x]  태스크에서 담당자의 정보 구조가 어떻게 변경되어야 할까?
+- [x]  선택되지 않은 modifier를 적용한다?
+- [x]  내부에서만 사용되는 함수의 가시성은?
+- [x]  태그 글자수 제한
+- [x]  공통 로직 분리 요구
+- [x]  require 동작 확인
+- [x]  패키지명 확인
+- [x]  성공하는 테스트 추가 권장
+
+---
+
+# 2차 피드백 목록
+
+- [x] Modifier를 가이드 라인에 맞게 파라미터로 넘기기
+- [x] require 내부 코드 확인
+- [x] 실패하는 DialogTest 고치기
+- [x] FooterRow를 더 간단하게 변경하기
+- [x] 초기 상태에서 생성 버튼을 눌렀을 때 발생하는 버그 해결하기
+- [x] 디버깅용 코드 지우기
+- [x] Composable 함수 안에서 관리되는 객체 문제 해결하기
+- [x] CommonButtonColumn의 selectedIndex 변수 수정하기
+- [x] BoardPreviewParameterProvider의 가시성 수정하기
+- [ ] testTag를 사용한 테스트 코드 개선하기
+- [x] TagsComponent를 코틀린스럽게 변경하기
+- [x] 태그에 빈 공간을 넣었을 때 오류가 발생하도록 기능 추가
+- [x] rememberSaveable로 통일하기
+- [x] Tag에서 관리하는 글자수 제한 로직을 제거함
+- [x] Tags에서 크기를 관리 및 검증하는 로직을 제거함

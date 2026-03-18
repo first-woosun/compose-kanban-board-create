@@ -1,0 +1,99 @@
+package woowacourse.kanban.board.ui.create.maincontent
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import woowacourse.kanban.board.domain.model.Status
+import woowacourse.kanban.board.ui.component.Label
+import woowacourse.kanban.board.ui.preview.KanbanPreview
+
+private const val CONTENT_LABEL = "상태"
+
+@Composable
+fun StatusSelector(modifier: Modifier = Modifier, selectedStatus: Status = Status.TODO, onStatusChange: (Status) -> Unit) {
+    Column(
+        modifier = modifier.fillMaxWidth(1f),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Label(CONTENT_LABEL, true)
+        Row(
+            modifier = Modifier.fillMaxWidth(1f),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Status.entries.forEach { status ->
+                StatusSelectorChip(
+                    status = status,
+                    selectedStatus = selectedStatus,
+                    onStatusChange = onStatusChange,
+                    modifier = Modifier.weight(1f),
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun StatusSelectorChip(modifier: Modifier = Modifier, status: Status, selectedStatus: Status, onStatusChange: (Status) -> Unit) {
+    FilterChip(
+        selected = selectedStatus == status,
+        onClick = {
+            onStatusChange(status)
+        },
+        label = {
+            Text(
+                text = status.toDisplayText(),
+                modifier = Modifier.fillMaxWidth()
+                    .padding(vertical = 14.dp),
+                textAlign = TextAlign.Center,
+            )
+        },
+        colors = FilterChipDefaults.filterChipColors(
+            containerColor = Color.White,
+            selectedContainerColor = Color(0xffEFF6FF),
+            selectedLabelColor = Color(0xff1447E6),
+        ),
+        modifier = modifier,
+        border = FilterChipDefaults.filterChipBorder(
+            enabled = true,
+            selected = selectedStatus == status,
+            borderColor = Color.Gray,
+            selectedBorderColor = Color.Blue,
+            borderWidth = 1.dp,
+            selectedBorderWidth = 1.dp,
+        ),
+    )
+}
+
+@Composable
+@KanbanPreview
+private fun StatusPreview() {
+    StatusSelector(
+        selectedStatus = Status.TODO,
+        onStatusChange = { print(it) },
+    )
+}
+
+@Composable
+@KanbanPreview
+private fun StatusChipPreview() {
+    var status by remember { mutableStateOf(Status.TODO) }
+    StatusSelectorChip(
+        selectedStatus = status,
+        status = Status.TODO,
+        onStatusChange = {},
+    )
+}

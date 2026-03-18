@@ -1,40 +1,44 @@
-This is a Kotlin Multiplatform project targeting Android, Desktop (JVM).
+# 칸반 보드 생성(상품 목록)
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+# 기능 구현 사항
 
-### Build and Run Android Application
+### 1. 모달 구현
+- [x] 모달 헤더 (타이틀 내용, 취소 버튼) 구현
+- [x] 모달 푸터 (취소, 생성 버튼) 구현
+- [x] 입력 컴포넌트 구현
+- [x] 버튼 컴포넌트 구현
+- [x] 모달 바디 구현
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+### 2. 비즈니스 로직
+- [x] 텍스트 필드 유효성 검사 로직 구현
+  - [x] 제목 필드 빈 값 불가
+  - [x] 설명 필드 100글자 이내
+  - [x] 태그 쉼표로 구분하여 최대 5개
+  - [x] 태그 당 글자 수 5자 제한
+- [x] 버튼 선택 상태 관리 구현
+- [x] 생성 버튼 유효성 검사 구현
 
-### Build and Run Desktop (JVM) Application
+### 3. 테스트 시나리오
 
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
+#### 단위 테스트
 
----
+- [x]  제목에 빈 값이 들어오면 false를 반환한다.
+- [x]  태그의 개수가 5개 초과하면 false를 반환한다.
+- [x]  태그 당 텍스트 글자 수가 5자를 초과하면 false를 반환한다.
+- [x]  제목에 값이 입력되면 true를 반환한다.
+- [x]  태그에 빈 값이 입력되면 true를 반환한다.
+- [x]  태그별 텍스트가 비어있으면 false를 반환한다.
+- [x]  모든 태그의 텍스트 글자 수가 5자 이하이면 true를 반환한다.
+- [x]  제목이 입력되면 isButtonEnabled에 true를 반환한다.
+- [x]  제목이 입력되지 않으면 isButtonEnabled에 false를 반환한다.
+- [x]  태그가 5개 초과면 isButtonEnabled에 false를 반환한다.
+- [x]  한 태그의 글자 수가 5자 초과면 isButtonEnabled에 false를 반환한다.
+- [x]  제목이 입력되고 태그의 개수가 5개 이하이며 한 태그당 글자 수가 5자 이하면 isButtonEnabled에 true를 반환한다.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+#### UI 테스트
+
+- [x]  제목 필드에 빈 값이 입력되면 텍스트 필드 border가 빨간색이 된다.
+- [x]  태그 필드의 태그 개수가 5개 초과하면 border가 빨간색이 된다.
+- [x]  태그 필드의 태그 당 텍스트 글자 수가 5자를 초과하면 border가 빨간색이 된다.
+- [x]  필수 값 (제목)이 입력되면 생성 버튼이 활성화 된다.
+- [x]  필수 값 (제목)이 입력되지 않으면 생성 버튼이 비활성화된다.

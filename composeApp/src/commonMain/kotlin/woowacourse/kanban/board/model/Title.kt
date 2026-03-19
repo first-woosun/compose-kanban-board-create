@@ -1,7 +1,7 @@
 package woowacourse.kanban.board.model
 
 data class Title(
-    val title: String
+    val value: String
 ) {
-    fun isNotValidTitle() = title.isBlank()
+    fun isNotValidTitle() = value.isBlank()
 }

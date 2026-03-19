@@ -2,14 +2,14 @@ package woowacourse.kanban.board.model
 
 import woowacourse.kanban.board.constant.TagsConst
 
-data class Tags(val tags: String) {
-    private fun extractTags() = tags.split(",").map { it.trim() }
+data class Tags(val values: String) {
+    private fun extractTags() = values.split(",").map { it.trim() }
 
     fun isNotValidTags(): Boolean {
-        if (this.tags.isBlank()) return false
+        if (this.values.isEmpty()) return false
 
-        val tags = extractTags()
+        val extractedTags = extractTags()
 
-        return tags.size > TagsConst.MAX_TAGS || tags.any { tag -> tag.isEmpty() || tag.length > TagsConst.TAG_MAX_TEXT_LENGTH }
+        return extractedTags.size > TagsConst.MAX_TAGS || extractedTags.any { tag -> tag.isEmpty() || tag.length > TagsConst.TAG_MAX_TEXT_LENGTH }
     }
 }

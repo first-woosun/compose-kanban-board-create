@@ -22,6 +22,7 @@ from 책 「애자일 조직은 이렇게 일합니다」
 ## 기능 구현 목록
 - [ ] 태스크 카드 객체 생성 로직
   - [ ] TaskCardData 클래스 리펙터링
+- [ ] 전체 태스크 카드 저장 테이블
 - [ ] 태스크 상태 구분 로직
 - [ ] 태스크 완료율 계산 로직
 - [x] 태스크 상태값 한정하기 (enum)
@@ -50,3 +51,12 @@ from 책 「애자일 조직은 이렇게 일합니다」
 - [x] Stateless 적용
 ### [x] LabelAndContent 리펙터링
 - [x] RowScope -> FlowRowScope
+
+## 테스트 시나리오
+### TaskCardTable 테스트
+1. [ ] TODO 상태 태스크가 입력되면 todoTable에 저장된다.
+2. [ ] IN_PROGRESS 상태 태스크가 입력되면 inProgressTable에 저장된다
+3. [ ] DONE 상태 태스크가 입력되면 doneTable에 저장된다
+4. [ ] 입력된 태스크의 전채 개수를 알 수 있다
+5. [ ] 여러 태스크 중 DONE 상태인 task의 개수를 알 수 있다
+6. [ ] 입력 된 태스크의 완료율을 알 수 있다

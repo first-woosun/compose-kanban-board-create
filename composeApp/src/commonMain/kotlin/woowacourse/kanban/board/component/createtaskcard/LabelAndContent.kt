@@ -3,7 +3,7 @@ package woowacourse.kanban.board.component.createtaskcard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.FlowRowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -26,7 +26,7 @@ import woowacourse.kanban.board.constant.TitleConst
 fun LabelAndContent (
     label: String,
     modifier: Modifier = Modifier,
-    content: @Composable RowScope.() -> Unit,
+    content: @Composable FlowRowScope.() -> Unit,
 ){
 
     Column(

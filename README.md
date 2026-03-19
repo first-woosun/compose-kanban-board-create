@@ -47,7 +47,7 @@ from 책 「애자일 조직은 이렇게 일합니다」
 - [ ] 태스크 상태 변경
   - [ ] 태스크의 상태가 변경되었습니다. (To Do -> In Progress)
   - [ ] 태스크를 완료했습니다. (In Progress -> Done)
-### [ ] TaskCardDataInput 리펙터링
-- [ ] Stateless 적용
-### [ ] LabelAndContent 리펙터링
-- [ ] RowScope -> FlowRowScope
+### [x] TaskCardDataInput 리펙터링
+- [x] Stateless 적용
+### [x] LabelAndContent 리펙터링
+- [x] RowScope -> FlowRowScope

@@ -31,7 +31,7 @@ import woowacourse.kanban.board.model.Manager
 fun ManagerButton(
     option: String,
     isSelected: Boolean,
-    onClick: (Manager) -> Unit,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -43,7 +43,7 @@ fun ManagerButton(
                 color = if (isSelected) ColorPalette.Blue50 else Color.Transparent,
                 shape = RoundedCornerShape(10.dp))
             .background(color = if(isSelected) ColorPalette.Blue80 else ColorPalette.Gray70)
-            .clickable { onClick }
+            .clickable { onClick() }
             .padding(horizontal = 16.dp, vertical = 20.dp),
     ) {
         Row(

@@ -25,12 +25,13 @@ import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
 import org.jetbrains.compose.resources.painterResource
 import woowacourse.kanban.board.constant.ColorPalette
+import woowacourse.kanban.board.model.Manager
 
 @Composable
 fun ManagerButton(
     option: String,
     isSelected: Boolean,
-    onClick: () -> Unit,
+    onClick: (Manager) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -42,7 +43,7 @@ fun ManagerButton(
                 color = if (isSelected) ColorPalette.Blue50 else Color.Transparent,
                 shape = RoundedCornerShape(10.dp))
             .background(color = if(isSelected) ColorPalette.Blue80 else ColorPalette.Gray70)
-            .clickable { onClick() }
+            .clickable { onClick }
             .padding(horizontal = 16.dp, vertical = 20.dp),
     ) {
         Row(

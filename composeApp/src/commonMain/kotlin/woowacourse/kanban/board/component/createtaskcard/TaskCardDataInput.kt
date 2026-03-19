@@ -55,10 +55,8 @@ fun TaskCardDataInput(
     tags: String,
     isNotValidTags: Boolean,
     onTagsChange: (String) -> Unit,
-    stateOptions: List<State>,
     selectedState: State,
     onStateClick: (State) -> Unit,
-    managerOptions: List<Manager>,
     selectedManager: Manager,
     onManagerClick: (Manager) -> Unit
 ) {
@@ -148,11 +146,11 @@ fun TaskCardDataInput(
                 label = StateButtonConst.STATE_BUTTON_LABEL,
                 modifier = Modifier.testTag(TestTags.STATE_BTN),
             ) {
-                stateOptions.forEach { option ->
+                State.entries.forEach { option ->
                     StateButton(
                         option = option.value,
                         isSelected = selectedState == option,
-                        onClick = onStateClick,
+                        onClick = { onStateClick(option) },
                         modifier = Modifier.testTag("${option.value}${TestTags.BTN}")
                     )
                 }
@@ -162,12 +160,12 @@ fun TaskCardDataInput(
                 label = ProfileButtonConst.PROFILE_BUTTON_LABEL,
                 modifier = Modifier.testTag(TestTags.MANAGER_BTN)
             ) {
-                managerOptions.forEach { manager ->
+                Manager.entries.forEach { option ->
                     ManagerButton(
-                        option = manager.value,
-                        isSelected = selectedManager == manager,
-                        onClick = onManagerClick,
-                        modifier = Modifier.testTag("${manager.value}${TestTags.BTN}")
+                        option = option.value,
+                        isSelected = selectedManager == option,
+                        onClick = { onManagerClick(option) },
+                        modifier = Modifier.testTag("${option.value}${TestTags.BTN}"),
                     )
                 }
             }
@@ -224,18 +222,9 @@ private fun TaskCardDataInputPreview() {
         }
     }
 
-    val stateOptions = listOf(
-        State(StateButtonConst.STATE_BUTTON_TODO),
-        State(StateButtonConst.STATE_BUTTON_PROGRESS),
-        State(StateButtonConst.STATE_BUTTON_DONE)
-    )
-    var selectedState by remember { mutableStateOf(stateOptions[0]) }
+    var selectedState by remember { mutableStateOf(State.TODO) }
 
-    val managerOptions = listOf(
-        Manager(ProfileButtonConst.PROFILE_BUTTON_DINO),
-        Manager(ProfileButtonConst.PROFILE_BUTTON_PAMES)
-    )
-    var selectedManager by remember { mutableStateOf(managerOptions[0]) }
+    var selectedManager by remember { mutableStateOf(Manager.DINO) }
 
     TaskCardDataInput(
         title = title,
@@ -246,10 +235,8 @@ private fun TaskCardDataInputPreview() {
         tags = tags,
         isNotValidTags = isNotValidTags,
         onTagsChange = { tags = it },
-        stateOptions = stateOptions,
         selectedState = selectedState,
         onStateClick = { selectedState = it },
-        managerOptions = managerOptions,
         selectedManager = selectedManager,
         onManagerClick = { selectedManager = it }
     )

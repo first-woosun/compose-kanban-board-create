@@ -17,12 +17,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import woowacourse.kanban.board.constant.ColorPalette
+import woowacourse.kanban.board.model.State
 
 @Composable
 fun StateButton(
     option: String,
     isSelected: Boolean,
-    onClick: () -> Unit,
+    onClick: (State) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -35,7 +36,7 @@ fun StateButton(
                 shape = RoundedCornerShape(10.dp),
             )
             .background(color = if (isSelected) ColorPalette.Blue80 else ColorPalette.Gray70)
-            .clickable { onClick() }
+            .clickable { onClick }
             .padding(horizontal = 50.dp, vertical = 14.dp),
 
         ) {

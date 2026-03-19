@@ -1,4 +1,8 @@
 package woowacourse.kanban.board.model
 
-data class Manager(val value: String) {
+enum class Manager(
+    val value: String
+) {
+    DINO("다이노"),
+    FAMES("페임스"),
 }

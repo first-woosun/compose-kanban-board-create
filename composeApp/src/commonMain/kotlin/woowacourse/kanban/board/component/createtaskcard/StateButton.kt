@@ -23,7 +23,7 @@ import woowacourse.kanban.board.model.State
 fun StateButton(
     option: String,
     isSelected: Boolean,
-    onClick: (State) -> Unit,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -36,7 +36,7 @@ fun StateButton(
                 shape = RoundedCornerShape(10.dp),
             )
             .background(color = if (isSelected) ColorPalette.Blue80 else ColorPalette.Gray70)
-            .clickable { onClick }
+            .clickable { onClick() }
             .padding(horizontal = 50.dp, vertical = 14.dp),
 
         ) {

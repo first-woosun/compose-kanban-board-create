@@ -33,4 +33,27 @@ class TaskCardDataInputState {
     fun onManagerClick(value: Manager) {
         selectedManager = value
     }
+
+    var showDialog by mutableStateOf(false)
+    fun onShowDialogChange(value: Boolean) {
+        showDialog = value
+    }
+
+    fun getCard(): TaskCardData {
+        val newCard = TaskCardData(
+            title = title,
+            description = description,
+            tags = Tags(tags).extractTags(),
+            state = selectedState,
+            manager = selectedManager
+        )
+
+        title = ""
+        description = ""
+        tags = ""
+        selectedState = State.TODO
+        selectedManager = Manager.DINO
+
+        return newCard
+    }
 }

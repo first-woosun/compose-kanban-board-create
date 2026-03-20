@@ -4,38 +4,8 @@ import org.junit.Test
 import woowacourse.kanban.board.model.Manager
 import woowacourse.kanban.board.model.State
 import woowacourse.kanban.board.model.TaskCardData
+import woowacourse.kanban.board.model.TaskCardTable
 import kotlin.test.assertEquals
-
-class TaskCardTable {
-    val todoTable = mutableListOf<TaskCardData>()
-    val inProgressTable = mutableListOf<TaskCardData>()
-    val doneTable = mutableListOf<TaskCardData>()
-
-    fun addCard(inputCard: TaskCardData) {
-        when (inputCard.state){
-            State.TODO -> todoTable.add(inputCard)
-            State.IN_PROGRESS -> inProgressTable.add(inputCard)
-            State.DONE -> doneTable.add(inputCard)
-        }
-    }
-
-    fun getAllTaskCount() = todoTable.size + inProgressTable.size + doneTable.size
-
-    fun getTodoTaskCount() = todoTable.size
-
-    fun getInProgressTaskCount() = inProgressTable.size
-
-    fun getDoneTaskCount() = doneTable.size
-
-    fun getRatioOfDoneTask(): Int {
-        val ratio = (doneTable.size.toDouble() / getAllTaskCount()) * HUNDRED
-
-        return ratio.toInt()
-    }
-    companion object {
-        const val HUNDRED = 100
-    }
-}
 
 class TaskCardCollectionTest {
     @Test
@@ -50,9 +20,9 @@ class TaskCardCollectionTest {
             manager = Manager.DINO
         ))
 
-        assertEquals(1, taskCardTable.getTodoTaskCount())
-        assertEquals(0, taskCardTable.getInProgressTaskCount())
-        assertEquals(0, taskCardTable.getDoneTaskCount())
+        assertEquals(1, taskCardTable.todoTaskCount)
+        assertEquals(0, taskCardTable.inProgressTaskCount)
+        assertEquals(0, taskCardTable.doneTaskCount)
     }
 
     @Test
@@ -67,9 +37,9 @@ class TaskCardCollectionTest {
             manager = Manager.DINO
         ))
 
-        assertEquals(0, taskCardTable.getTodoTaskCount())
-        assertEquals(1, taskCardTable.getInProgressTaskCount())
-        assertEquals(0, taskCardTable.getDoneTaskCount())
+        assertEquals(0, taskCardTable.todoTaskCount)
+        assertEquals(1, taskCardTable.inProgressTaskCount)
+        assertEquals(0, taskCardTable.doneTaskCount)
     }
 
     @Test
@@ -84,9 +54,9 @@ class TaskCardCollectionTest {
             manager = Manager.DINO
         ))
 
-        assertEquals(0, taskCardTable.getTodoTaskCount())
-        assertEquals(0, taskCardTable.getInProgressTaskCount())
-        assertEquals(1, taskCardTable.getDoneTaskCount())
+        assertEquals(0, taskCardTable.todoTaskCount)
+        assertEquals(0, taskCardTable.inProgressTaskCount)
+        assertEquals(1, taskCardTable.doneTaskCount)
     }
 
     @Test
@@ -124,7 +94,7 @@ class TaskCardCollectionTest {
             manager = Manager.DINO
         ))
 
-        assertEquals(6, taskCardTable.getAllTaskCount())
+        assertEquals(6, taskCardTable.allTaskCount)
     }
 
     @Test
@@ -162,7 +132,7 @@ class TaskCardCollectionTest {
             manager = Manager.DINO
         ))
 
-        assertEquals(3, taskCardTable.getDoneTaskCount())
+        assertEquals(3, taskCardTable.doneTaskCount)
     }
 
     @Test
@@ -200,7 +170,7 @@ class TaskCardCollectionTest {
             manager = Manager.DINO
         ))
 
-        assertEquals(50, taskCardTable.getRatioOfDoneTask())
+        assertEquals(50, taskCardTable.ratioOfDoneInt)
     }
 
     @Test
@@ -238,7 +208,7 @@ class TaskCardCollectionTest {
             manager = Manager.DINO
         ))
 
-        assertEquals(0, taskCardTable.getRatioOfDoneTask())
+        assertEquals(0, taskCardTable.ratioOfDoneInt)
     }
 
     @Test
@@ -276,6 +246,6 @@ class TaskCardCollectionTest {
             manager = Manager.DINO
         ))
 
-        assertEquals(100, taskCardTable.getRatioOfDoneTask())
+        assertEquals(100, taskCardTable.ratioOfDoneInt)
     }
 }

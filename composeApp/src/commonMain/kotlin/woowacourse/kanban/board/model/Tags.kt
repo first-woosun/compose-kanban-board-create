@@ -3,7 +3,7 @@ package woowacourse.kanban.board.model
 import woowacourse.kanban.board.constant.TagsConst
 
 data class Tags(val values: String) {
-    private fun extractTags() = values.split(",").map { it.trim() }
+    fun extractTags() = values.split(",").map { it.trim() }
 
     fun isNotValidTags(): Boolean {
         if (this.values.isEmpty()) return false

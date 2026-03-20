@@ -12,6 +12,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import woowacourse.kanban.board.constant.ColorPalette
@@ -29,7 +30,8 @@ fun TaskCard(
 ) {
     Card(
         modifier = modifier
-            .width(286.dp),
+            .width(286.dp)
+            .testTag("태스크 카드"),
         colors = CardDefaults.cardColors(
             containerColor = Color.White,
         ),

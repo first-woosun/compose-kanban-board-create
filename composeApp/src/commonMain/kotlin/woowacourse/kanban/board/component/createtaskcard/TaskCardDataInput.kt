@@ -46,7 +46,8 @@ import woowacourse.kanban.board.model.TaskCardDataInputState
 @Composable
 fun TaskCardDataInput(
     state: TaskCardDataInputState,
-    onCreate: (TaskCardData) -> Unit
+    onCreate: (TaskCardData) -> Unit,
+    onCancel: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -80,7 +81,9 @@ fun TaskCardDataInput(
                 )
                 Icon(
                     modifier = Modifier
-                        .clickable { state.onShowDialogChange(false) },
+                        .clickable {
+                            onCancel()
+                        },
                     imageVector = Icons.Default.Close,
                     contentDescription = "닫기",
                 )
@@ -175,7 +178,9 @@ fun TaskCardDataInput(
                         containerColor = Color.Transparent,
                         contentColor = ColorPalette.Gray20,
                         text = HeaderAndFooterConst.CANCEL_BUTTON,
-                        onClick = { state.onShowDialogChange(false) }
+                        onClick = {
+                            onCancel()
+                        }
                     )
 
                     Spacer(modifier = Modifier.width(12.dp))
@@ -204,7 +209,8 @@ private fun TaskCardDataInputPreview() {
         state = state,
         onCreate = {
             print(it)
-        }
+        },
+        onCancel = {}
     )
 }
 

@@ -3,6 +3,8 @@ package woowacourse.kanban.board.component.taskcard
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
+import woowacourse.kanban.board.model.Manager
+import woowacourse.kanban.board.model.State
 import kotlin.test.Test
 import woowacourse.kanban.board.model.TaskCardData
 
@@ -14,9 +16,10 @@ class TaskCardTest {
         val tags = listOf("컴포넌트", "성능")
         val taskCardData = TaskCardData(
             title = "LazyColumn 컴포넌트 구현",
-            script = "세로 스크롤 가능한 리스트 컴포넌트를 만들고 성능 최적화를 적용합니다.",
+            description = "세로 스크롤 가능한 리스트 컴포넌트를 만들고 성능 최적화를 적용합니다.",
             tags = tags,
-            nickname = "다이노",
+            state = State.TODO,
+            manager = Manager.DINO,
         )
         setContent {
             TaskCard(data = taskCardData)

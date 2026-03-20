@@ -13,7 +13,7 @@ import woowacourse.kanban.board.model.Tags
 import woowacourse.kanban.board.model.Title
 
 @OptIn(ExperimentalTestApi::class)
-class FooterButtonTest {
+class ActionButtonTest {
     @Test
     fun `입력된 제목과 태그가 없으면 생성버튼이 비활성화된다`() = runComposeUiTest {
         val isNotValidTitle = Title(TestText.BLANK_TEXT).isNotValidTitle()

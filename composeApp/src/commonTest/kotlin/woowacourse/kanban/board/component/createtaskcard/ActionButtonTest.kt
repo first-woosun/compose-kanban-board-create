@@ -20,7 +20,7 @@ class FooterButtonTest {
         val isNotValidTags = Tags(TestText.BLANK_TEXT).isNotValidTags()
 
         setContent {
-            FooterButton(
+            ActionButton(
                 enabled =  !isNotValidTitle && !isNotValidTags,
                 containerColor = ColorPalette.Blue50,
                 text = HeaderAndFooterConst.CREATE_BUTTON,
@@ -36,7 +36,7 @@ class FooterButtonTest {
         val isNotValidTags = Tags(TestText.BLANK_TEXT).isNotValidTags()
 
         setContent {
-            FooterButton(
+            ActionButton(
                 enabled =  !isNotValidTitle && !isNotValidTags,
                 containerColor = ColorPalette.Blue50,
                 text = HeaderAndFooterConst.CREATE_BUTTON,
@@ -52,7 +52,7 @@ class FooterButtonTest {
         val isNotValidTags = Tags(TestText.TOO_MANY_TAGS).isNotValidTags()
 
         setContent {
-            FooterButton(
+            ActionButton(
                 enabled =  !isNotValidTitle && !isNotValidTags,
                 containerColor = ColorPalette.Blue50,
                 text = HeaderAndFooterConst.CREATE_BUTTON,
@@ -68,7 +68,7 @@ class FooterButtonTest {
         val isNotValidTags = Tags(TestText.TOO_LONG_TAG).isNotValidTags()
 
         setContent {
-            FooterButton(
+            ActionButton(
                 enabled =  !isNotValidTitle && !isNotValidTags,
                 containerColor = ColorPalette.Blue50,
                 text = HeaderAndFooterConst.CREATE_BUTTON,
@@ -84,7 +84,7 @@ class FooterButtonTest {
         val isNotValidTags = Tags(TestText.TEST_TAGS).isNotValidTags()
 
         setContent {
-            FooterButton(
+            ActionButton(
                 enabled =  !isNotValidTitle && !isNotValidTags,
                 containerColor = ColorPalette.Blue50,
                 text = HeaderAndFooterConst.CREATE_BUTTON,

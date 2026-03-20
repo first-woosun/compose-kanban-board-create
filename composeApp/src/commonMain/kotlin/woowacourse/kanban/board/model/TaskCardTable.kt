@@ -1,32 +1,29 @@
 package woowacourse.kanban.board.model
 
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+
 class TaskCardTable {
-    val todoTable = mutableListOf<TaskCardData>()
-    val inProgressTable = mutableListOf<TaskCardData>()
-    val doneTable = mutableListOf<TaskCardData>()
+    private val tasks = mutableStateListOf<TaskCardData>()
+
+    val todoTable: List<TaskCardData> get() = tasks.filter { it.state == State.TODO }
+    val inProgressTable: List<TaskCardData> get() = tasks.filter { it.state == State.IN_PROGRESS }
+    val doneTable: List<TaskCardData> get() = tasks.filter { it.state == State.DONE }
+
+    val allTaskCount: Int get() = tasks.size
+
+    val todoTaskCount:Int get() = todoTable.size
+
+    val inProgressTaskCount: Int get() = inProgressTable.size
+
+    val doneTaskCount: Int get() = doneTable.size
+
+    val ratioOfDoneInt: Int get() = if (tasks.isEmpty()) 0 else (doneTaskCount * 100) / allTaskCount
+
+    val ratioOfDoneFloat: Float get() = if (tasks.isEmpty()) 0f else (doneTaskCount / allTaskCount).toFloat()
 
     fun addCard(inputCard: TaskCardData) {
-        when (inputCard.state){
-            State.TODO -> todoTable.add(inputCard)
-            State.IN_PROGRESS -> inProgressTable.add(inputCard)
-            State.DONE -> doneTable.add(inputCard)
-        }
-    }
-
-    fun getAllTaskCount() = todoTable.size + inProgressTable.size + doneTable.size
-
-    fun getTodoTaskCount() = todoTable.size
-
-    fun getInProgressTaskCount() = inProgressTable.size
-
-    fun getDoneTaskCount() = doneTable.size
-
-    fun getRatioOfDoneTask(): Int {
-        val ratio = (doneTable.size.toDouble() / getAllTaskCount()) * HUNDRED
-
-        return ratio.toInt()
-    }
-    companion object {
-        const val HUNDRED = 100
+        tasks.add(inputCard)
     }
 }

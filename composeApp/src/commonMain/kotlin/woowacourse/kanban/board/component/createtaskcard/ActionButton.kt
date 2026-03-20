@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun FooterButton(
+fun ActionButton(
     containerColor: Color,
     text: String,
     modifier: Modifier = Modifier,

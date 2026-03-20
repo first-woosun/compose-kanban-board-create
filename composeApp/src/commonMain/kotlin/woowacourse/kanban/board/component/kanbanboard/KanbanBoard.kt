@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,21 +18,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import woowacourse.kanban.board.component.createtaskcard.FooterButton
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import kotlinx.coroutines.CoroutineScope
+import woowacourse.kanban.board.component.createtaskcard.ActionButton
 import woowacourse.kanban.board.component.createtaskcard.TaskCardDataInput
 import woowacourse.kanban.board.constant.ColorPalette
 import woowacourse.kanban.board.model.State
+import woowacourse.kanban.board.model.TaskCardDataInputState
+import woowacourse.kanban.board.model.TaskCardTable
 
 @Composable
 fun KanbanBoard(
-    showTaskCardDataInput: Boolean,
-
+    taskCardDataInputState: TaskCardDataInputState,
+    taskCardTable: TaskCardTable,
 ){
     Column(
         modifier = Modifier
@@ -57,18 +61,30 @@ fun KanbanBoard(
                         fontWeight = FontWeight.SemiBold
                     )
                     Text(
-                        text = "완료율 : 50% (3/6)"
+                        text = "완료율 : ${taskCardTable.ratioOfDoneInt}% (${taskCardTable.doneTaskCount}/${taskCardTable.allTaskCount}) "
                     )
                 }
-                FooterButton(
+                ActionButton(
                     containerColor = ColorPalette.TASK_ADD_BUTTON,
                     text = "+새 태스크 생성",
+                    onClick = { taskCardDataInputState.onShowDialogChange(true) }
                 )
-                if(showTaskCardDataInput){
-                    TaskCardDataInput()
+                if(taskCardDataInputState.showDialog){
+                    Dialog(
+                        onDismissRequest = { taskCardDataInputState.onShowDialogChange(false) },
+                        properties = DialogProperties(usePlatformDefaultWidth = false)
+                    ) {
+                        TaskCardDataInput(
+                            state = taskCardDataInputState,
+                            onCreate = {
+                                taskCardTable.addCard(it)
+                            },
+                        )
+                    }
                 }
             }
             LinearProgressIndicator(
+                progress = { taskCardTable.ratioOfDoneFloat },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(8.dp),
@@ -84,9 +100,9 @@ fun KanbanBoard(
                 .padding(24.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            TaskBoard(State.TODO, listOf())
-            TaskBoard(State.IN_PROGRESS, listOf())
-            TaskBoard(State.DONE, listOf())
+            TaskBoard(State.TODO, taskCardTable.todoTable)
+            TaskBoard(State.IN_PROGRESS, taskCardTable.inProgressTable)
+            TaskBoard(State.DONE, taskCardTable.doneTable)
         }
     }
 }
@@ -94,6 +110,10 @@ fun KanbanBoard(
 @Preview(widthDp = 1200, heightDp = 900, showBackground = true)
 @Composable
 fun KanbanBoardPreview() {
-    var showTaskCardDataInput by remember { mutableStateOf(false) }
-    KanbanBoard(showTaskCardDataInput = showTaskCardDataInput)
+    val state = remember { TaskCardDataInputState() }
+    val taskCardTable = remember { TaskCardTable() }
+    KanbanBoard(
+        state,
+        taskCardTable
+    )
 }

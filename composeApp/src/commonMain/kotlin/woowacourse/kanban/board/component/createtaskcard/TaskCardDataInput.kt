@@ -18,7 +18,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,23 +36,17 @@ import woowacourse.kanban.board.constant.HeaderAndFooterConst
 import woowacourse.kanban.board.constant.ProfileButtonConst
 import woowacourse.kanban.board.constant.StateButtonConst
 import woowacourse.kanban.board.constant.TagsConst
-import woowacourse.kanban.board.constant.TagsMaxValue
 import woowacourse.kanban.board.constant.TestTags
 import woowacourse.kanban.board.constant.TitleConst
 import woowacourse.kanban.board.model.Manager
 import woowacourse.kanban.board.model.State
-import woowacourse.kanban.board.model.Tags
+import woowacourse.kanban.board.model.TaskCardData
 import woowacourse.kanban.board.model.TaskCardDataInputState
-import woowacourse.kanban.board.model.Title
 
 @Composable
 fun TaskCardDataInput(
     state: TaskCardDataInputState,
-//    onTitleChange: (String) -> Unit,
-//    onDescriptionChange: (String) -> Unit,
-//    onTagsChange: (String) -> Unit,
-//    onStateClick: (State) -> Unit,
-//    onManagerClick: (Manager) -> Unit
+    onCreate: (TaskCardData) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -87,7 +80,7 @@ fun TaskCardDataInput(
                 )
                 Icon(
                     modifier = Modifier
-                        .clickable {},
+                        .clickable { state.onShowDialogChange(false) },
                     imageVector = Icons.Default.Close,
                     contentDescription = "닫기",
                 )
@@ -178,18 +171,23 @@ fun TaskCardDataInput(
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.End,
                 ) {
-                    FooterButton(
+                    ActionButton(
                         containerColor = Color.Transparent,
                         contentColor = ColorPalette.Gray20,
                         text = HeaderAndFooterConst.CANCEL_BUTTON,
+                        onClick = { state.onShowDialogChange(false) }
                     )
 
                     Spacer(modifier = Modifier.width(12.dp))
 
-                    FooterButton(
+                    ActionButton(
                         enabled =  !state.isNotValidTitle && !state.isNotValidTags ,
                         containerColor = ColorPalette.Blue50,
                         text = HeaderAndFooterConst.CREATE_BUTTON,
+                        onClick = {
+                            onCreate(state.getCard())
+                            state.onShowDialogChange(false)
+                        }
                     )
                 }
             }
@@ -203,7 +201,10 @@ private fun TaskCardDataInputPreview() {
     val state = remember { TaskCardDataInputState() }
 
     TaskCardDataInput(
-        state = state
+        state = state,
+        onCreate = {
+            print(it)
+        }
     )
 }
 

@@ -22,31 +22,31 @@ from 책 「애자일 조직은 이렇게 일합니다」
 ## 기능 구현 목록
 - [ ] 태스크 카드 객체 생성 로직
   - [ ] TaskCardData 클래스 리펙터링
-- [ ] 전체 태스크 카드 저장 테이블
-- [ ] 태스크 상태 구분 로직
-- [ ] 태스크 완료율 계산 로직
+- [x] 전체 태스크 카드 저장 테이블
+- [x] 태스크 상태 구분 로직
+- [x] 태스크 완료율 계산 로직
 - [x] 태스크 상태값 한정하기 (enum)
 - [ ] 태그 입력 사이 공백 처리 ("긴급,  , 버그")
 
 ## UI 구현 목록
 
-### [ ] Header 영역
-- [ ] 칸반 보드 Title
-- [ ] 태스크 완료율 Text
-- [ ] 완료율 Progress Bar
-- [ ] 새 태스크 생성 Button
-  - [ ] 클릭 시 TaskCardDataInput() 컴포저블 팝업
-### [ ] 태스크 카드 보드
-- [ ] State 라벨
-- [ ] 태스크 개수 Text
-- [ ] 태스크 카드 LazyColumn
-### [ ] 특정 이벤트에 반응하는 SnackBar
-- 각 SnackBar는 일정 시간(약 3초?) 동안 유지된 후 제거 
-- [ ] 새 태스크 생성 완료
-  - [ ] 새로운 태스크가 추가되었습니다.
-- [ ] 태스크 상태 변경
-  - [ ] 태스크의 상태가 변경되었습니다. (To Do -> In Progress)
-  - [ ] 태스크를 완료했습니다. (In Progress -> Done)
+### [x] Header 영역
+- [x] 칸반 보드 Title
+- [x] 태스크 완료율 Text
+- [x] 완료율 Progress Bar
+- [x] 새 태스크 생성 Button
+  - [x] 클릭 시 TaskCardDataInput() 컴포저블 팝업
+### [x] 태스크 카드 보드
+- [x] State 라벨
+- [x] 태스크 개수 Text
+- [x] 태스크 카드 LazyColumn
+### [x] 특정 이벤트에 반응하는 SnackBar
+- 각 SnackBar는 일정 시간동안 유지된 후 제거 
+- [x] 새 태스크 생성 완료
+  - [x] 새로운 태스크가 추가되었습니다.
+- [x] 태스크 생성 취소
+  - [x] 태스크 추가가 취소되었습니다.
+
 ### [x] TaskCardDataInput 리펙터링
 - [x] Stateless 적용
 ### [x] LabelAndContent 리펙터링

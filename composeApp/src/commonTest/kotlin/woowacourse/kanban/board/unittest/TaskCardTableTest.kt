@@ -202,4 +202,80 @@ class TaskCardCollectionTest {
 
         assertEquals(50, taskCardTable.getRatioOfDoneTask())
     }
+
+    @Test
+    fun `완료된 태스크가 없으면 완료율은 0이디 `() {
+        val taskCardTable = TaskCardTable()
+
+        taskCardTable.addCard(TaskCardData(
+            title = "title1",
+            state = State.TODO,
+            manager = Manager.DINO
+        ))
+        taskCardTable.addCard(TaskCardData(
+            title = "title2",
+            state = State.TODO,
+            manager = Manager.FAMES
+        ))
+        taskCardTable.addCard(TaskCardData(
+            title = "title3",
+            state = State.IN_PROGRESS,
+            manager = Manager.DINO
+        ))
+        taskCardTable.addCard(TaskCardData(
+            title = "title4",
+            state = State.TODO,
+            manager = Manager.DINO
+        ))
+        taskCardTable.addCard(TaskCardData(
+            title = "title5",
+            state = State.TODO,
+            manager = Manager.DINO
+        ))
+        taskCardTable.addCard(TaskCardData(
+            title = "title6",
+            state = State.TODO,
+            manager = Manager.DINO
+        ))
+
+        assertEquals(0, taskCardTable.getRatioOfDoneTask())
+    }
+
+    @Test
+    fun `모든 태스크가 완료되면 완료율은 100이다`() {
+        val taskCardTable = TaskCardTable()
+
+        taskCardTable.addCard(TaskCardData(
+            title = "title1",
+            state = State.DONE,
+            manager = Manager.DINO
+        ))
+        taskCardTable.addCard(TaskCardData(
+            title = "title2",
+            state = State.DONE,
+            manager = Manager.FAMES
+        ))
+        taskCardTable.addCard(TaskCardData(
+            title = "title3",
+            state = State.DONE,
+            manager = Manager.DINO
+        ))
+        taskCardTable.addCard(TaskCardData(
+            title = "title4",
+            state = State.DONE,
+            manager = Manager.DINO
+        ))
+        taskCardTable.addCard(TaskCardData(
+            title = "title5",
+            state = State.DONE,
+            manager = Manager.DINO
+        ))
+        taskCardTable.addCard(TaskCardData(
+            title = "title6",
+            state = State.DONE,
+            manager = Manager.DINO
+        ))
+
+        assertEquals(100, taskCardTable.getRatioOfDoneTask())
+    }
 }

@@ -10,6 +10,6 @@ data class Tags(val values: String) {
 
         val extractedTags = extractTags()
 
-        return extractedTags.size > TagsConst.MAX_TAGS || extractedTags.any { tag -> tag.isEmpty() || tag.length > TagsConst.TAG_MAX_TEXT_LENGTH }
+        return extractedTags.size > TagsConst.MAX_TAGS || extractedTags.any { tag -> tag.isBlank() || tag.length > TagsConst.TAG_MAX_TEXT_LENGTH }
     }
 }

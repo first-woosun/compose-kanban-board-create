@@ -17,19 +17,8 @@ import androidx.compose.ui.unit.dp
 import woowacourse.kanban.board.constant.ColorPalette
 import woowacourse.kanban.board.constant.TagsConst
 import woowacourse.kanban.board.model.TaskCardData
-
-@Preview
-@Composable
-private fun TaskCardPreview() {
-    TaskCard(
-        data = TaskCardData(
-            title = "LazyColumn 컴포넌트 구현",
-            script = "세로 스크롤 가능한 리스트 컴포넌트를 만들고 성능 최적화를 적용합니다.",
-            tags = listOf("컴포넌트", "성능"),
-            nickname = "다이노",
-        ),
-    )
-}
+import woowacourse.kanban.board.model.State
+import woowacourse.kanban.board.model.Manager
 
 @Composable
 fun TaskCard(
@@ -53,7 +42,7 @@ fun TaskCard(
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             Title(data.title)
-            Script(data.script)
+            Script(data.description)
             Tags(
                 tags = data.tags,
                 maxTagCount = maxTagCount,
@@ -63,7 +52,21 @@ fun TaskCard(
                 thickness = 1.dp,
                 color = ColorPalette.Gray80,
             )
-            Profile(data.nickname)
+            Profile(data.manager.value)
         }
     }
+}
+
+@Preview
+@Composable
+private fun TaskCardPreview() {
+    TaskCard(
+        data = TaskCardData(
+            title = "LazyColumn 컴포넌트 구현",
+            description = "세로 스크롤 가능한 리스트 컴포넌트를 만들고 성능 최적화를 적용합니다.",
+            tags = listOf("컴포넌트", "성능"),
+            state = State.TODO,
+            manager = Manager.DINO
+        ),
+    )
 }

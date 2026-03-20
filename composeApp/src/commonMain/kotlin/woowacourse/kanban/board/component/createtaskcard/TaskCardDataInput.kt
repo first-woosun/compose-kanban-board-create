@@ -43,21 +43,16 @@ import woowacourse.kanban.board.constant.TitleConst
 import woowacourse.kanban.board.model.Manager
 import woowacourse.kanban.board.model.State
 import woowacourse.kanban.board.model.Tags
+import woowacourse.kanban.board.model.TaskCardDataInputState
 import woowacourse.kanban.board.model.Title
 
 @Composable
 fun TaskCardDataInput(
-    title: String,
-    isNotValidTitle: Boolean,
+    taskCardDataInputState: TaskCardDataInputState,
     onTitleChange: (String) -> Unit,
-    description: String,
     onDescriptionChange: (String) -> Unit,
-    tags: String,
-    isNotValidTags: Boolean,
     onTagsChange: (String) -> Unit,
-    selectedState: State,
     onStateClick: (State) -> Unit,
-    selectedManager: Manager,
     onManagerClick: (Manager) -> Unit
 ) {
     Card(
@@ -105,11 +100,11 @@ fun TaskCardDataInput(
                 modifier = Modifier.testTag(TestTags.TITLE_INPUT),
             ) {
                 TextInput(
-                    value = title,
+                    value = taskCardDataInputState.title,
                     placeholder = TitleConst.TITLE_PLACEHOLDER,
                     onTextChange = onTitleChange,
                     singleLine = true,
-                    isError = isNotValidTitle,
+                    isError = taskCardDataInputState.isNotValidTitle,
                     errorText = TitleConst.TITLE_ERROR
                 )
             }
@@ -119,7 +114,7 @@ fun TaskCardDataInput(
                 modifier = Modifier.testTag(TestTags.DESCRIPTION_INPUT),
             ) {
                 TextInput(
-                    value = description,
+                    value = taskCardDataInputState.description,
                     placeholder = DescriptionConst.DESCRIPTION_PLACEHOLDER,
                     onTextChange = onDescriptionChange,
                     modifier = Modifier
@@ -132,12 +127,12 @@ fun TaskCardDataInput(
                 modifier = Modifier.testTag(TestTags.TAGS_INPUT),
             ) {
                 TextInput(
-                    value = tags,
+                    value = taskCardDataInputState.tags,
                     placeholder = TagsConst.TAG_PLACEHOLDER,
                     onTextChange = onTagsChange,
                     singleLine = true,
                     supportingText = TagsConst.TAG_SUPPORTING,
-                    isError = isNotValidTags,
+                    isError = taskCardDataInputState.isNotValidTags,
                     errorText = TagsConst.TAG_ERROR,
                 )
             }
@@ -149,7 +144,7 @@ fun TaskCardDataInput(
                 State.entries.forEach { option ->
                     StateButton(
                         option = option.value,
-                        isSelected = selectedState == option,
+                        isSelected = taskCardDataInputState.selectedState == option,
                         onClick = { onStateClick(option) },
                         modifier = Modifier.testTag("${option.value}${TestTags.BTN}")
                     )
@@ -163,7 +158,7 @@ fun TaskCardDataInput(
                 Manager.entries.forEach { option ->
                     ManagerButton(
                         option = option.value,
-                        isSelected = selectedManager == option,
+                        isSelected = taskCardDataInputState.selectedManager == option,
                         onClick = { onManagerClick(option) },
                         modifier = Modifier.testTag("${option.value}${TestTags.BTN}"),
                     )
@@ -192,7 +187,7 @@ fun TaskCardDataInput(
                     Spacer(modifier = Modifier.width(12.dp))
 
                     FooterButton(
-                        enabled =  !isNotValidTitle && !isNotValidTags ,
+                        enabled =  !taskCardDataInputState.isNotValidTitle && !taskCardDataInputState.isNotValidTags ,
                         containerColor = ColorPalette.Blue50,
                         text = HeaderAndFooterConst.CREATE_BUTTON,
                     )
@@ -205,40 +200,15 @@ fun TaskCardDataInput(
 @Preview(showBackground = true, widthDp = 800, heightDp = 1000)
 @Composable
 private fun TaskCardDataInputPreview() {
-    var title by remember { mutableStateOf("") }
-    var description by remember { mutableStateOf("") }
-    var tags by remember { mutableStateOf("") }
-    val isNotValidTitle by remember {
-        derivedStateOf {
-            Title(title).isNotValidTitle()
-        }
-    }
-    val isNotValidTags by remember {
-        derivedStateOf {
-            if(tags.isBlank()){
-                return@derivedStateOf false
-            }
-            Tags(tags).isNotValidTags()
-        }
-    }
-
-    var selectedState by remember { mutableStateOf(State.TODO) }
-
-    var selectedManager by remember { mutableStateOf(Manager.DINO) }
+    val taskCardDataInputState by remember { mutableStateOf(TaskCardDataInputState()) }
 
     TaskCardDataInput(
-        title = title,
-        isNotValidTitle = isNotValidTitle,
-        onTitleChange = { title = it },
-        description = description,
-        onDescriptionChange = { description = it },
-        tags = tags,
-        isNotValidTags = isNotValidTags,
-        onTagsChange = { tags = it },
-        selectedState = selectedState,
-        onStateClick = { selectedState = it },
-        selectedManager = selectedManager,
-        onManagerClick = { selectedManager = it }
+        taskCardDataInputState = taskCardDataInputState,
+        onTitleChange = { taskCardDataInputState.title = it },
+        onDescriptionChange = { taskCardDataInputState.description = it },
+        onTagsChange = { taskCardDataInputState.tags = it },
+        onStateClick = { taskCardDataInputState.selectedState = it },
+        onManagerClick = { taskCardDataInputState.selectedManager = it }
     )
 }
 

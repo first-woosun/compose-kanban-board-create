@@ -52,9 +52,9 @@ fun ManagerButton(
             Image(
                 painter = painterResource(Res.drawable.profile),
                 contentDescription = "프로필 이미지",
-                modifier = modifier.size(24.dp),
+                modifier = Modifier.size(24.dp),
             )
-            Spacer(modifier = modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(12.dp))
             Text(
                 text = option,
                 modifier = Modifier.fillMaxWidth(),

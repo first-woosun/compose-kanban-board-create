@@ -93,7 +93,6 @@ fun TaskCardDataInput(
 
             LabelAndContent(
                 label = TitleConst.TITLE_LABEL,
-                modifier = Modifier.testTag(TestTags.TITLE_INPUT),
             ) {
                 TextInput(
                     value = state.title,
@@ -102,25 +101,25 @@ fun TaskCardDataInput(
                     singleLine = true,
                     isError = state.isNotValidTitle,
                     errorText = TitleConst.TITLE_ERROR,
+                    modifier = Modifier.testTag(TestTags.TITLE_INPUT)
                 )
             }
 
             LabelAndContent(
                 label = DescriptionConst.DESCRIPTION_LABEL,
-                modifier = Modifier.testTag(TestTags.DESCRIPTION_INPUT),
             ) {
                 TextInput(
                     value = state.description,
                     placeholder = DescriptionConst.DESCRIPTION_PLACEHOLDER,
                     onTextChange = { state.onDescriptionChange(it) },
                     modifier = Modifier
-                        .height(200.dp),
+                        .height(200.dp)
+                        .testTag(TestTags.DESCRIPTION_INPUT),
                 )
             }
 
             LabelAndContent(
                 label = TagsConst.TAG_LABEL,
-                modifier = Modifier.testTag(TestTags.TAGS_INPUT),
             ) {
                 TextInput(
                     value = state.tags,
@@ -130,6 +129,7 @@ fun TaskCardDataInput(
                     supportingText = TagsConst.TAG_SUPPORTING,
                     isError = state.isNotValidTags,
                     errorText = TagsConst.TAG_ERROR,
+                    modifier = Modifier.testTag(TestTags.TAGS_INPUT)
                 )
             }
 
@@ -191,7 +191,6 @@ fun TaskCardDataInput(
                         text = HeaderAndFooterConst.CREATE_BUTTON,
                         onClick = {
                             onCreate(state.getCard())
-                            state.onShowDialogChange(false)
                         }
                     )
                 }

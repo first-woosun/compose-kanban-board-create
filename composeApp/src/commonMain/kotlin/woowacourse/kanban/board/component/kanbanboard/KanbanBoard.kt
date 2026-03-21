@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -75,13 +76,14 @@ fun KanbanBoard(
                             fontWeight = FontWeight.SemiBold
                         )
                         Text(
-                            text = "완료율 : ${taskCardTable.ratioOfDoneInt}% (${taskCardTable.doneTaskCount}/${taskCardTable.allTaskCount}) "
+                            text = "완료율 : ${taskCardTable.ratioOfDoneInt}% (${taskCardTable.doneTaskCount}/${taskCardTable.allTaskCount})",
+                            modifier = modifier.testTag("완료율")
                         )
                     }
                     ActionButton(
                         containerColor = ColorPalette.TASK_ADD_BUTTON,
                         text = "+새 태스크 생성",
-                        onClick = { taskCardDataInputState.onShowDialogChange(true) }
+                        onClick = { taskCardDataInputState.onShowDialogChange(true) },
                     )
                     if(taskCardDataInputState.showDialog){
                         Dialog(
@@ -101,6 +103,7 @@ fun KanbanBoard(
                                 state = taskCardDataInputState,
                                 onCreate = {
                                     taskCardTable.addCard(it)
+                                    taskCardDataInputState.onShowDialogChange(false)
                                     coroutineScope.launch {
                                         snackBarHostState.showSnackbar(
                                             message = "새로운 태스크가 추가되었습니다.",

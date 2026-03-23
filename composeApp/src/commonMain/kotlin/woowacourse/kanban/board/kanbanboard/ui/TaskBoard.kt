@@ -28,6 +28,7 @@ import woowacourse.kanban.board.constant.ColorPalette
 import woowacourse.kanban.board.taskcard.domain.Manager
 import woowacourse.kanban.board.taskcard.domain.State
 import woowacourse.kanban.board.taskcard.domain.TaskCardData
+import woowacourse.kanban.board.taskcard.domain.value
 
 @Composable
 fun TaskBoard(taskState: State, taskCards: List<TaskCardData>, modifier: Modifier = Modifier) {
@@ -61,7 +62,7 @@ fun TaskBoard(taskState: State, taskCards: List<TaskCardData>, modifier: Modifie
 
         ) {
             Text(
-                text = taskState.value,
+                text = taskState.value(),
                 color = Color(0xFFFFFFFF),
                 textAlign = TextAlign.Center,
                 fontSize = 16.sp,

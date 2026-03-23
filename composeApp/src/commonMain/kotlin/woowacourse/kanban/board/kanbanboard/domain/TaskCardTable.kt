@@ -5,9 +5,9 @@ import woowacourse.kanban.board.taskcard.domain.State
 import woowacourse.kanban.board.taskcard.domain.TaskCardData
 
 class TaskCardTable {
-    val todoTable = mutableListOf<TaskCardData>()
-    val inProgressTable = mutableListOf<TaskCardData>()
-    val doneTable = mutableListOf<TaskCardData>()
+    val todoTable = mutableStateListOf<TaskCardData>()
+    val inProgressTable = mutableStateListOf<TaskCardData>()
+    val doneTable = mutableStateListOf<TaskCardData>()
 
     val allTaskCount: Int get() = todoTaskCount + inProgressTaskCount + doneTaskCount
 

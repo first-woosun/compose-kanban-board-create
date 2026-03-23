@@ -5,13 +5,11 @@ import woowacourse.kanban.board.taskcard.domain.State
 import woowacourse.kanban.board.taskcard.domain.TaskCardData
 
 class TaskCardTable {
-    private val tasks = mutableStateListOf<TaskCardData>()
+    val todoTable = mutableListOf<TaskCardData>()
+    val inProgressTable = mutableListOf<TaskCardData>()
+    val doneTable = mutableListOf<TaskCardData>()
 
-    val todoTable: List<TaskCardData> get() = tasks.filter { it.state == State.TODO }
-    val inProgressTable: List<TaskCardData> get() = tasks.filter { it.state == State.IN_PROGRESS }
-    val doneTable: List<TaskCardData> get() = tasks.filter { it.state == State.DONE }
-
-    val allTaskCount: Int get() = tasks.size
+    val allTaskCount: Int get() = todoTaskCount + inProgressTaskCount + doneTaskCount
 
     val todoTaskCount:Int get() = todoTable.size
 
@@ -19,11 +17,15 @@ class TaskCardTable {
 
     val doneTaskCount: Int get() = doneTable.size
 
-    val ratioOfDoneInt: Int get() = if (tasks.isEmpty()) 0 else (doneTaskCount * 100) / allTaskCount
+    val ratioOfDoneInt: Int get() = if (allTaskCount == 0) 0 else (doneTaskCount * 100) / allTaskCount
 
-    val ratioOfDoneFloat: Float get() = if (tasks.isEmpty()) 0f else (doneTaskCount.toFloat() / allTaskCount.toFloat())
+    val ratioOfDoneFloat: Float get() = if (allTaskCount == 0) 0f else (doneTaskCount.toFloat() / allTaskCount)
 
     fun addCard(inputCard: TaskCardData) {
-        tasks.add(inputCard)
+        when(inputCard.state){
+            State.TODO -> todoTable.add(inputCard)
+            State.IN_PROGRESS -> inProgressTable.add(inputCard)
+            State.DONE -> doneTable.add(inputCard)
+        }
     }
 }

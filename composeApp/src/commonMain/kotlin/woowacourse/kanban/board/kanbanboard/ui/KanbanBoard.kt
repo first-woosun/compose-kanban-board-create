@@ -78,7 +78,7 @@ fun KanbanBoard(
                         )
                         Text(
                             text = "완료율 : ${taskCardTable.ratioOfDoneInt}% (${taskCardTable.doneTaskCount}/${taskCardTable.allTaskCount})",
-                            modifier = modifier.testTag("완료율")
+                            modifier = Modifier.testTag("완료율")
                         )
                     }
                     ActionButton(

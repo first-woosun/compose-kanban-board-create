@@ -102,6 +102,6 @@ class KanbanBoardTest {
 
         waitForIdle()
 
-        onNodeWithTag("완료율", useUnmergedTree = true).assertTextContains("완료율: 100% (1/1)")
+        onNodeWithTag("완료율", useUnmergedTree = true).assertTextContains("완료율 : 100% (1/1)")
     }
 }

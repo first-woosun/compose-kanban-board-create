@@ -15,7 +15,9 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -48,6 +50,16 @@ fun KanbanBoard(
     val coroutineScope = rememberCoroutineScope()
 
     var showDialog by remember { mutableStateOf(false) }
+
+    val taskCardCount by remember { mutableIntStateOf(taskCardTable.allTaskCount) }
+    LaunchedEffect(taskCardCount) {
+        coroutineScope.launch {
+            snackBarHostState.showSnackbar(
+                message = "새로운 태스크가 추가되었습니다.",
+                withDismissAction = true
+            )
+        }
+    }
 
     Scaffold(
         modifier = modifier,
@@ -92,12 +104,6 @@ fun KanbanBoard(
                             onCreate = {
                                 taskCardTable.addCard(it)
                                 showDialog = false
-                                coroutineScope.launch {
-                                    snackBarHostState.showSnackbar(
-                                        message = "새로운 태스크가 추가되었습니다.",
-                                        withDismissAction = true
-                                    )
-                                }
                             },
                             onCancel = {
                                 showDialog = false

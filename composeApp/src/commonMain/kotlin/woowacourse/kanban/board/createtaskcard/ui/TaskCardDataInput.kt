@@ -35,7 +35,7 @@ import androidx.compose.ui.window.DialogProperties
 import woowacourse.kanban.board.constant.ColorPalette
 import woowacourse.kanban.board.constant.DescriptionConst
 import woowacourse.kanban.board.constant.HeaderAndFooterConst
-import woowacourse.kanban.board.constant.ProfileButtonConst
+import woowacourse.kanban.board.constant.ManagerButtonConst
 import woowacourse.kanban.board.constant.StateButtonConst
 import woowacourse.kanban.board.constant.TagsConst
 import woowacourse.kanban.board.constant.TestTags
@@ -46,6 +46,7 @@ import woowacourse.kanban.board.taskcard.domain.TaskCardData
 import woowacourse.kanban.board.createtaskcard.domain.TaskCardDataInputState
 import woowacourse.kanban.board.taskcard.domain.Tags
 import woowacourse.kanban.board.taskcard.domain.Title
+import woowacourse.kanban.board.taskcard.domain.value
 
 @Composable
 fun TaskCardDataInput(
@@ -148,24 +149,24 @@ fun TaskCardDataInput(
                 ) {
                     State.entries.forEach { option ->
                         StateButton(
-                            option = option.value,
+                            option = option.value(),
                             isSelected = state.selectedState == option,
                             onClick = { state.selectedState = option },
-                            modifier = Modifier.testTag("${option.value}${TestTags.BTN}")
+                            modifier = Modifier.testTag("${option.value()}${TestTags.BTN}")
                         )
                     }
                 }
 
                 LabelAndContent(
-                    label = ProfileButtonConst.PROFILE_BUTTON_LABEL,
+                    label = ManagerButtonConst.MANAGER_BUTTON_LABEL,
                     modifier = Modifier.testTag(TestTags.MANAGER_BTN)
                 ) {
                     Manager.entries.forEach { option ->
                         ManagerButton(
-                            option = option.value,
+                            option = option.value(),
                             isSelected = state.selectedManager == option,
                             onClick = { state.selectedManager = option },
-                            modifier = Modifier.testTag("${option.value}${TestTags.BTN}"),
+                            modifier = Modifier.testTag("${option.value()}${TestTags.BTN}"),
                         )
                     }
                 }
@@ -230,7 +231,7 @@ fun ButtonPreview(){
     val stateOptions = listOf(StateButtonConst.STATE_BUTTON_TODO, StateButtonConst.STATE_BUTTON_PROGRESS, StateButtonConst.STATE_BUTTON_DONE)
     var selectedState by remember { mutableStateOf(stateOptions[0]) }
 
-    val managerOptions = listOf(ProfileButtonConst.PROFILE_BUTTON_DINO, ProfileButtonConst.PROFILE_BUTTON_PAMES)
+    val managerOptions = listOf(ManagerButtonConst.MANAGER_BUTTON_DINO, ManagerButtonConst.MANAGER_BUTTON_PAMES)
     var selectedManager by remember { mutableStateOf(managerOptions[0]) }
 
     Column(
@@ -253,7 +254,7 @@ fun ButtonPreview(){
             }
         }
         LabelAndContent(
-            label = ProfileButtonConst.PROFILE_BUTTON_LABEL,
+            label = ManagerButtonConst.MANAGER_BUTTON_LABEL,
             modifier = Modifier
         ) {
             managerOptions.forEach { manager ->

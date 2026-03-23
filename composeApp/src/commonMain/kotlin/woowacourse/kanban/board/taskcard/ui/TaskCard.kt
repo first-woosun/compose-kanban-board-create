@@ -20,6 +20,7 @@ import woowacourse.kanban.board.constant.TagsConst
 import woowacourse.kanban.board.taskcard.domain.TaskCardData
 import woowacourse.kanban.board.taskcard.domain.State
 import woowacourse.kanban.board.taskcard.domain.Manager
+import woowacourse.kanban.board.taskcard.domain.value
 import woowacourse.kanban.board.taskcard.ui.Profile
 
 @Composable
@@ -55,7 +56,7 @@ fun TaskCard(
                 thickness = 1.dp,
                 color = ColorPalette.Gray80,
             )
-            Profile(data.manager.value)
+            Profile(data.manager.value())
         }
     }
 }

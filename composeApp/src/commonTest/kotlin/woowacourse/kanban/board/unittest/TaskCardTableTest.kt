@@ -1,10 +1,10 @@
 package woowacourse.kanban.board.unittest
 
 import org.junit.Test
-import woowacourse.kanban.board.model.Manager
-import woowacourse.kanban.board.model.State
-import woowacourse.kanban.board.model.TaskCardData
-import woowacourse.kanban.board.model.TaskCardTable
+import woowacourse.kanban.board.taskcard.domain.Manager
+import woowacourse.kanban.board.taskcard.domain.State
+import woowacourse.kanban.board.taskcard.domain.TaskCardData
+import woowacourse.kanban.board.kanbanboard.domain.TaskCardTable
 import kotlin.test.assertEquals
 
 class TaskCardCollectionTest {

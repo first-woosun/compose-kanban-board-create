@@ -2,10 +2,9 @@ package woowacourse.kanban.board
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import woowacourse.kanban.board.component.createtaskcard.TaskCardDataInput
-import woowacourse.kanban.board.component.kanbanboard.KanbanBoard
-import woowacourse.kanban.board.model.TaskCardDataInputState
-import woowacourse.kanban.board.model.TaskCardTable
+import woowacourse.kanban.board.kanbanboard.ui.KanbanBoard
+import woowacourse.kanban.board.createtaskcard.domain.TaskCardDataInputState
+import woowacourse.kanban.board.kanbanboard.domain.TaskCardTable
 
 @Composable
 fun App() {

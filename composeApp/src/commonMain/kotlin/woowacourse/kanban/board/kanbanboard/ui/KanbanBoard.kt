@@ -136,7 +136,7 @@ fun KanbanBoard(
 
 @Preview(widthDp = 1200, heightDp = 900, showBackground = true)
 @Composable
-fun KanbanBoardPreview() {
+private fun KanbanBoardPreview() {
     val state = remember { TaskCardDataInputState() }
     val taskCardTable = remember { TaskCardTable() }
     KanbanBoard(

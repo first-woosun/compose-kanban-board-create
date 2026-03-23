@@ -21,7 +21,7 @@ class TaskCardTable {
 
     val ratioOfDoneInt: Int get() = if (tasks.isEmpty()) 0 else (doneTaskCount * 100) / allTaskCount
 
-    val ratioOfDoneFloat: Float get() = if (tasks.isEmpty()) 0f else (doneTaskCount / allTaskCount).toFloat()
+    val ratioOfDoneFloat: Float get() = if (tasks.isEmpty()) 0f else (doneTaskCount.toFloat() / allTaskCount.toFloat())
 
     fun addCard(inputCard: TaskCardData) {
         tasks.add(inputCard)

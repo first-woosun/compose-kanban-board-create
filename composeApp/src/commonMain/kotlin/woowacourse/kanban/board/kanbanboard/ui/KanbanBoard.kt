@@ -94,7 +94,8 @@ fun KanbanBoard(
                                 showDialog = false
                                 coroutineScope.launch {
                                     snackBarHostState.showSnackbar(
-                                        message = "새로운 태스크가 추가되었습니다."
+                                        message = "새로운 태스크가 추가되었습니다.",
+                                        withDismissAction = true
                                     )
                                 }
                             },
@@ -102,7 +103,8 @@ fun KanbanBoard(
                                 showDialog = false
                                 coroutineScope.launch {
                                     snackBarHostState.showSnackbar(
-                                        message = "태스크 추가가 취소되었습니다."
+                                        message = "태스크 추가가 취소되었습니다.",
+                                        withDismissAction = true
                                     )
                                 }
                             }
